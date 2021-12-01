@@ -1,9 +1,11 @@
 import express from "express";
 import { graphqlHTTP } from "express-graphql";
+import { dbConnection } from "./database/config";
 import schema from "./graphql/schema"
 
-const app = express();
 
+const app = express();
+dbConnection();
 app.use("/graphql", graphqlHTTP({
     graphiql: true,
     schema: schema

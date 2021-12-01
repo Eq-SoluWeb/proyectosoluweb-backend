@@ -3,7 +3,7 @@ const UsuarioSchema = Schema({
     nombreProyecto : { type: String, required: true },
     objetivosGenerales : [],
     objetivosEspecificos : [],
-    presupuesto : { type: String, required: true },
+    presupuesto : { type: Int, required: true },
     fechaInicio : { type: Date, require: true},
     fechaTerminacion : { type: Date, require: true },
     _idLider : { type: String, require: true },
