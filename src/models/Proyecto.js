@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-const UsuarioSchema = Schema({
+const ProyectoSchema = Schema({
     nombreProyecto : { type: String, required: true },
     objetivosGenerales : [],
     objetivosEspecificos : [],
