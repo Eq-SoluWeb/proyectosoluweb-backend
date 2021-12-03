@@ -6,6 +6,5 @@ const InscripcionSchema = Schema({
     estadoInscripcion : { type: String, required: true },
     fechaIngreso : { type: Date, require: true},
     fechaEgreso : { type: Date, require: true },
-
 })
 module.exports = model("Inscripcion", InscripcionSchema);

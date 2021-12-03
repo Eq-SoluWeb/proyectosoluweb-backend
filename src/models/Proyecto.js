@@ -11,6 +11,5 @@ const ProyectoSchema = Schema({
     nombreLider : { type: String, require: true },
     estadoProyecto : { type: String, require: true },
     faseProyecto: { type: String, require: true },
-
 })
 module.exports = model("Proyecto", ProyectoSchema);
