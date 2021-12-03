@@ -11,6 +11,6 @@ app.use("/graphql", graphqlHTTP({
     schema: schema
 }));
 
-app.listen(4000, () => {
+app.listen(process.env.PORT || 4000, () => {
     console.log("Servidor conectado en el puerto 4000");
 })

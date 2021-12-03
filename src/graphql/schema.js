@@ -12,7 +12,7 @@ const typeDefs = `
     }
 
     type Usuario {
-        id: ID,
+        _idUsuario: ID,
         nombreCompleto: String,
         email: String,
         password: String,
@@ -21,32 +21,12 @@ const typeDefs = `
     }
 
     input UsuarioInput {
+        _idUsuario: ID,
         nombreCompleto: String,
         email: String,
         password: String,
         rol: String,
-    }
-
-    type Curso {
-        id: ID,
-        nombre: String,
-        lenguajes: [Lenguaje],
-        fecha: String,
-    } 
-
-    type Lenguaje {
-        lenguaje: String
-    }
-
-    input CursoInput {
-        nombre: String,
-        lenguajes: [LenguajeInput],
-        fecha: String,
-    }
-
-    input LenguajeInput {
-        lenguaje: String
-    }
+    }    
 `;
 
 export default makeExecutableSchema({
