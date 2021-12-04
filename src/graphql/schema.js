@@ -3,30 +3,50 @@ import { resolvers } from "./resolvers";
 
 const typeDefs = `
     type Query {
-        Usuarios : [Usuario]
-        Login(email : String!, password : String!): String
+        Usuarios : [Usuario],
+        unUsuario(id:ID):Usuario
     }
 
     type Mutation {
         AgregarUsuario(usuario : UsuarioInput): Usuario
+        ActualizarEstadoUsuario(id : String): Usuario
     }
 
     type Usuario {
-        _idUsuario: ID,
-        nombreCompleto: String,
+        id: ID,
         email: String,
+        identificacion: String,
+        nombreCompleto: String,
+        password: String,
+        estado: String,
+        rol: String,
+    }
+
+    type UnUsuario {
+        id: ID,
+        email: String,
+        identificacion: String,
+        nombreCompleto: String,
         password: String,
         estado: String,
         rol: String,
     }
 
     input UsuarioInput {
-        _idUsuario: ID,
-        nombreCompleto: String,
         email: String,
+        identificacion: String,
+        nombreCompleto: String,
         password: String,
         rol: String,
-    }    
+    }   
+    
+    input UnUsuarioInput {
+        email: String,
+        identificacion: String,
+        nombreCompleto: String,
+        password: String,
+        rol: String,
+    }
 `;
 
 export default makeExecutableSchema({
