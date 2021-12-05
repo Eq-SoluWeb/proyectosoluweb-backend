@@ -1,6 +1,8 @@
 import { args } from "commander";
+import Avance from "../models/Avance";
 import Proyecto from "../models/Proyecto";
 import Usuario from "../models/Usuario";
+import Inscripcion from "../models/Inscripcion";
 
 export const resolvers = {
     Query: {
@@ -15,7 +17,19 @@ export const resolvers = {
         },
         unProyecto(parents, args) {
             return Proyecto.findById(args.id)
-        }
+        },
+        Inscripciones() {
+            return Inscripcion.find()
+        },
+        unaInscripcion(parents, args) {
+            return Inscripcion.findById(args.id)
+        },
+        Avances() {
+            return Avance.find();
+        },
+        unAvance(parents, args) {
+            return Avance.findById(args.id)
+        },
     },
 
     Mutation: {
@@ -49,6 +63,45 @@ export const resolvers = {
                 faseProyecto: proyecto.faseProyecto
             });
             return await nProyecto.save();
-        }
+        },
+        async ActualizarEstadoProyecto(_, { id, input }) {
+            return await Proyecto.findByIdAndUpdate(id, input, { new: true });
+        },
+        async ActualizarFaseProyecto(_, { id, input }) {
+            return await Proyecto.findByIdAndUpdate(id, input, { new: true });
+        },
+        async ActualizarDatosProyecto(_, { id, input }) {
+            return await Proyecto.findByIdAndUpdate(id, input, { new: true });
+        },
+
+        async AgregarAvance(_, { avance }) {
+            const nAvance = new Avance({
+                idProyecto: avance.idProyecto,
+                fechaAvance: avance.fechaAvance,
+                descripcionAvance: avance.descripcionAvance,
+                observacionAvance: avance.observacionAvance,
+            });
+            return await nAvance.save();
+        },
+        async ActualizarDatosAvance(_, { id, input }) {
+            return await Avance.findByIdAndUpdate(id, input, { new: true });
+        },
+        async ActualizarObservacionAvance(_, { id, input }) {
+            return await Avance.findByIdAndUpdate(id, input, { new: true });
+        },
+
+        async AgregarInscripcion(_, { inscripcion }) {
+            const nInscripcion = new Inscripcion({
+                idProyecto: inscripcion.idProyecto,
+                idUsuario: inscripcion.idUsuario,
+                estadoInscripcion: inscripcion.estadoInscripcion,
+                fechaIngreso: inscripcion.fechaIngreso,
+                fechaEgreso: inscripcion.fechaEgreso,
+            });
+            return await nInscripcion.save();
+        },
+        async ActualizarEstadoInscripcion(_, { id, input }) {
+            return await Inscripcion.findByIdAndUpdate(id, input, { new: true });
+        },
     }
 }

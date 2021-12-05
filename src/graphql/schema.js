@@ -3,10 +3,14 @@ import { resolvers } from "./resolvers";
 
 const typeDefs = `
     type Query {
-        Usuarios : [Usuario],
-        unUsuario(id:ID):Usuario,
-        Proyectos : [Proyecto],
-        unProyecto(id:ID):Proyecto,
+        Usuarios: [Usuario],
+        unUsuario(id:ID): Usuario,
+        Proyectos: [Proyecto],
+        unProyecto(id:ID): Proyecto,
+        Inscripciones: [Inscripcion],
+        unaInscripcion(id:ID): Inscripcion,
+        Avances: [Avance],
+        unAvance(id:ID): Avance,
     }
 
     type Mutation {
@@ -14,6 +18,14 @@ const typeDefs = `
         ActualizarEstadoUsuario(id : ID!, input : UsuarioInputEstado): Usuario
         ActualizarDatosUsuario(id : ID!, input : UsuarioInputDatos): Usuario
         AgregarProyecto(proyecto : ProyectoInput): Proyecto
+        ActualizarEstadoProyecto(id : ID!, input : ProyectoInputEstado): Proyecto
+        ActualizarFaseProyecto(id : ID!, input : ProyectoInputFase): Proyecto
+        ActualizarDatosProyecto(id : ID!, input : ProyectoInputDatos): Proyecto
+        AgregarInscripcion(inscripcion : InscripcionInput): Inscripcion
+        ActualizarEstadoInscripcion(id : ID!, input : InscripcionInputEstado): Inscripcion
+        AgregarAvance(avance : AvanceInput): Avance
+        ActualizarDatosAvance(id : ID!, input : AvanceInputDatos): Avance
+        ActualizarObservacionAvance(id : ID!, input : AvanceInputObservacion): Avance
     }
 
     type Usuario {
@@ -54,6 +66,7 @@ const typeDefs = `
         email: String,
         identificacion: String,
         nombreCompleto: String,
+        password: String,
     }
 
     type Proyecto {
@@ -93,6 +106,90 @@ const typeDefs = `
         lider : String,
         estadoProyecto : String,
         faseProyecto: String,
+    }
+
+    input ProyectoInputEstado {
+        estadoProyecto : String,
+    }
+
+    input ProyectoInputFase {
+        faseProyecto: String,
+    }
+
+    input ProyectoInputDatos {
+        nombreProyecto : String,
+        objetivosGenerales : [String],
+        objetivosEspecificos : [String],
+        presupuesto : Int,
+        fechaInicio : String,
+        fechaTerminacion : String,
+        lider : String,
+        estadoProyecto : String,
+        faseProyecto: String,
+    }
+
+    type Inscripcion {
+        id: ID,
+        idProyecto: String,
+        idUsuario: String,
+        estadoInscripcion: String,
+        fechaIngreso: String,
+        fechaEgreso: String,
+    }
+
+    type unaInscripcion {
+        id: ID,
+        idProyecto: String,
+        idUsuario: String,
+        estadoInscripcion: String,
+        fechaIngreso: String,
+        fechaEgreso: String,
+    }
+
+    input InscripcionInput {
+        id: ID,
+        idProyecto: String,
+        idUsuario: String,
+        estadoInscripcion: String,
+        fechaIngreso: String,
+        fechaEgreso: String,
+    }
+
+    input InscripcionInputEstado {
+        estado: String,
+    }
+
+    type Avance {
+        id: ID,
+        idProyecto: String,
+        fechaAvance: String, 
+        descripcionAvance: String, 
+        observacionAvance: String, 
+    }
+
+    type UnAvance {
+        id: ID,
+        idProyecto: String,
+        fechaAvance: String,
+        descripcionAvance: String,
+        observacionAvance: String,
+    }
+
+    input AvanceInput {
+        id: ID,
+        idProyecto: String,
+        fechaAvance: String,
+        descripcionAvance: String,
+        observacionAvance: String,
+    }
+
+    input AvanceInputDatos {
+        fechaAvance : String,
+        descripcionAvance: String,
+    }
+
+    input AvanceInputObservacion {
+        observacionAvance : String,
     }
 `;
 
