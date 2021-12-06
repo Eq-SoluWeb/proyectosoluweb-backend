@@ -121,11 +121,6 @@ const typeDefs = `
         objetivosGenerales : [String],
         objetivosEspecificos : [String],
         presupuesto : Int,
-        fechaInicio : String,
-        fechaTerminacion : String,
-        lider : String,
-        estadoProyecto : String,
-        faseProyecto: String,
     }
 
     type Inscripcion {
@@ -156,7 +151,7 @@ const typeDefs = `
     }
 
     input InscripcionInputEstado {
-        estado: String,
+        estadoInscripcion: String,
     }
 
     type Avance {
