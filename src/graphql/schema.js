@@ -7,10 +7,15 @@ const typeDefs = `
         unUsuario(id:ID): Usuario,
         Proyectos: [Proyecto],
         unProyecto(id:ID): Proyecto,
+        avanceProyecto(id:ID):AvanceProyecto,
         Inscripciones: [Inscripcion],
         unaInscripcion(id:ID): Inscripcion,
         Avances: [Avance],
         unAvance(id:ID): Avance,
+        Login(email:String!,password:String!):String,
+        UsuariosEstudiantes: [Usuario],
+        MisProyectos(idUsuario:ID!):[Proyecto],
+
     }
 
     type Mutation {
@@ -26,6 +31,7 @@ const typeDefs = `
         AgregarAvance(avance : AvanceInput): Avance
         ActualizarDatosAvance(id : ID!, input : AvanceInputDatos): Avance
         ActualizarObservacionAvance(id : ID!, input : AvanceInputObservacion): Avance
+        
     }
 
     type Usuario {
@@ -68,6 +74,13 @@ const typeDefs = `
         nombreCompleto: String,
         password: String,
     }
+    type Avance {
+        id: ID,
+        idProyecto: String,
+        fechaAvance: String, 
+        descripcionAvance: String, 
+        observacionAvance: String, 
+    }
 
     type Proyecto {
         id: ID,
@@ -77,9 +90,10 @@ const typeDefs = `
         presupuesto : Int,
         fechaInicio : String,
         fechaTerminacion : String,
-        lider : String,
+        lider:Usuario,
         estadoProyecto : String,
         faseProyecto: String,
+        avance:[Avance]
     }
 
     type unProyecto {
@@ -94,6 +108,22 @@ const typeDefs = `
         estadoProyecto : String,
         faseProyecto: String,
     }
+
+
+    type AvanceProyecto {
+        id: ID,
+        nombreProyecto : String,
+        objetivosGenerales : [String],
+        objetivosEspecificos : [String],
+        presupuesto : Int,
+        fechaInicio : String,
+        fechaTerminacion : String,
+        lider : String,
+        estadoProyecto : String,
+        faseProyecto: String,
+        avance:[Avance]
+    }
+
 
     input ProyectoInput {
         id: ID,
@@ -159,14 +189,7 @@ const typeDefs = `
         estado: String,
     }
 
-    type Avance {
-        id: ID,
-        idProyecto: String,
-        fechaAvance: String, 
-        descripcionAvance: String, 
-        observacionAvance: String, 
-    }
-
+   
     type UnAvance {
         id: ID,
         idProyecto: String,

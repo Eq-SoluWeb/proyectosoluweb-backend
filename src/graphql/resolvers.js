@@ -3,21 +3,27 @@ import Avance from "../models/Avance";
 import Proyecto from "../models/Proyecto";
 import Usuario from "../models/Usuario";
 import Inscripcion from "../models/Inscripcion";
+import bcrypt from "bcrypt";
 
 export const resolvers = {
     Query: {
         Usuarios() {
-            return Usuario.find();
+            return Usuario.find().populate('lider','nombreCompleto');
         },
         unUsuario(parents, args) {
             return Usuario.findById(args.id)
         },
         Proyectos() {
-            return Proyecto.find();
+            return Proyecto.find().populate('lider','nombreCompleto');
         },
         unProyecto(parents, args) {
             return Proyecto.findById(args.id)
         },
+        async avanceProyecto(parents, args) {
+         
+            return await Proyecto.find().populate('avance',"descripcionAvance");
+        },
+       
         Inscripciones() {
             return Inscripcion.find()
         },
@@ -30,15 +36,37 @@ export const resolvers = {
         unAvance(parents, args) {
             return Avance.findById(args.id)
         },
+        async Login(_,{email,password}){
+           
+           const  usuario=await Usuario.findOne({email})
+            if(!usuario){
+                return  false
+            }
+             const validarPassword=bcrypt.compareSync(password,usuario.password);
+            if(!validarPassword){
+                 return false
+            }else {
+                return   true
+            }
+        },
+       async UsuariosEstudiantes(){
+           return await Usuario.find({rol:'Estudiante'});
+       },
+       async MisProyectos(_,{usuario}){
+        return await Proyecto.find({lider:usuario}).populate('lider',"nombreCompleto");;
+    }
+        
     },
 
     Mutation: {
         async AgregarUsuario(_, { usuario }) {
+            const salt=bcrypt.genSaltSync();
             const nUsuario = new Usuario({
+                
                 email: usuario.email,
                 identificacion: usuario.identificacion,
                 nombreCompleto: usuario.nombreCompleto,
-                password: usuario.password,
+                password: bcrypt.hashSync(usuario.password,salt),
                 rol: usuario.rol,
             });
             return await nUsuario.save();
